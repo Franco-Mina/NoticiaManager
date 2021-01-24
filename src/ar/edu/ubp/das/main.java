@@ -13,7 +13,7 @@ public class main {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		
+				
 		Runnable runnable = new Runnable() {			
 			@Override
 			public void run() {
@@ -44,10 +44,10 @@ public class main {
 			
 			switch (input) {
 				case "1":
-					System.out.println("terminado");
+					System.out.println("Terminando el proceso");
 					executor.shutdown();
-					boolean resultado = executor.awaitTermination(60, TimeUnit.SECONDS);
-					System.out.println("Terminando: " + (resultado?"Bien":"Mal"));
+					boolean resultado = executor.awaitTermination(60, TimeUnit.SECONDS);					
+					System.out.println("Terminado: " + (resultado?"Bien":"Mal"));
 				break;
 
 				default:

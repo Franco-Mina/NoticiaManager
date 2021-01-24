@@ -11,7 +11,7 @@ import ar.edu.ubp.das.bean.NoticiaAvisoBean;
 import ar.edu.ubp.das.bean.ws.NoticiaResponseBean;
 import ar.edu.ubp.das.bean.ws.NoticiasRequestBean;
 import ar.edu.ubp.das.conections.ConnectionManager;
-import ar.edu.ubp.das.db.ConsoleDbManger;
+import ar.edu.ubp.das.token.db.ConsoleTokenManger;
 
 public class NoticiaAvisoManager {
 	
@@ -26,7 +26,7 @@ public class NoticiaAvisoManager {
 		noticiaRequest.setUsuario("u1");
 		
 		ConnectionManager connectionManager = new ConnectionManager("src/ar/edu/ubp/das/manager/conexiones.xml", 
-				new  ConsoleDbManger(this.cadenaConexion,this.usuario,this.password));
+				new  ConsoleTokenManger(this.cadenaConexion,this.usuario,this.password));
 		
 		String json = connectionManager.callApi(2, noticiaRequest);
 		
