@@ -11,14 +11,15 @@ import ar.edu.ubp.das.bean.NoticiaAvisoBean;
 import ar.edu.ubp.das.bean.ws.NoticiaResponseBean;
 import ar.edu.ubp.das.bean.ws.NoticiasRequestBean;
 import ar.edu.ubp.das.conections.ConnectionManager;
+import ar.edu.ubp.das.logger.Logger;
 import ar.edu.ubp.das.token.db.ConsoleTokenManger;
 
 public class NoticiaAvisoManager {
 	
-	private String cadenaConexion = "jdbc:sqlserver://172.10.3.106;databaseName=gobierno_provincial";
-	private String usuario        = "sa";
-	private String password       = "Francomina1";
-	
+	private final String cadenaConexion = "jdbc:sqlserver://172.10.3.106;databaseName=gobierno_provincial";
+	private final String usuario        = "sa";
+	private final String password       = "Francomina1";
+	private final String logPath        = "c:/Logger/NoticaTask/";
 
 	public int ObtenerNoticias() {
 		//llamar al servicio
@@ -37,8 +38,7 @@ public class NoticiaAvisoManager {
 		try {
 			return this.GuardarEnDb(response);
 		} catch (ClassNotFoundException | SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			Logger.getLogger(this.logPath).escribirLog(e);
 			return -1;
 		}		
 	}

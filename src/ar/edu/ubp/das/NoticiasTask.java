@@ -7,12 +7,14 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
+import ar.edu.ubp.das.logger.Logger;
 import ar.edu.ubp.das.manager.NoticiaAvisoManager;
 
-public class main {
+public class NoticiasTask {
 
+	
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
+		String logPath = "c:/Logger/NoticaTask/";
 				
 		Runnable runnable = new Runnable() {			
 			@Override
@@ -55,11 +57,12 @@ public class main {
 					break;
 			}
 		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			Logger logger = Logger.getLogger(logPath);
+			logger.escribirLog(e);
+		} 
+		catch (IOException e) {
+			Logger logger = Logger.getLogger(logPath);
+			logger.escribirLog(e);
 		}
 		
 	}
