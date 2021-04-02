@@ -35,7 +35,7 @@ public class NoticiasTask {
 		ScheduledExecutorService executor = Executors.newScheduledThreadPool(1);
 		//Se configura el schedule, el primer numero es el delay hasta la primera ejecucion
 		//el segundo es cada cuanto se repite y el ultimo valor es la unidad de tiempo
-		executor.scheduleAtFixedRate(runnable, 5, 12, TimeUnit.HOURS);	
+		executor.scheduleAtFixedRate(runnable, 1, 12, TimeUnit.HOURS);	
 		
 		InputStreamReader inputStream = new InputStreamReader(System.in);
 		BufferedReader bufferedReader = new BufferedReader(inputStream);
@@ -48,12 +48,12 @@ public class NoticiasTask {
 				case "1":
 					System.out.println("Terminando el proceso");
 					executor.shutdown();
-					boolean resultado = executor.awaitTermination(60, TimeUnit.SECONDS);					
+					boolean resultado = executor.awaitTermination(120, TimeUnit.SECONDS);					
 					System.out.println("Terminado: " + (resultado?"Bien":"Mal"));
 				break;
 
 				default:
-					System.out.println("Continuar ");
+					System.out.println("Continuar");
 					break;
 			}
 		} catch (InterruptedException e) {

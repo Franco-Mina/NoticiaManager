@@ -19,7 +19,7 @@ public class NoticiaAvisoManager {
 	private final String cadenaConexion = "jdbc:sqlserver://172.10.3.106;databaseName=gobierno_provincial";
 	private final String usuario        = "sa";
 	private final String password       = "Francomina1";
-	private final String logPath        = "c:/Logger/NoticaTask/";
+	private final String logPath        = "c:/Logger/NoticiaTask/";
 
 	public int ObtenerNoticias() {
 		//llamar al servicio
@@ -27,7 +27,7 @@ public class NoticiaAvisoManager {
 		noticiaRequest.setUsuario("u1");
 		
 		ConnectionManager connectionManager = new ConnectionManager("src/ar/edu/ubp/das/manager/conexiones.xml", 
-				new  ConsoleTokenManger(this.cadenaConexion,this.usuario,this.password));
+				new  ConsoleTokenManger(this.cadenaConexion,this.usuario,this.password),logPath);
 		
 		String json = connectionManager.callApi(2, noticiaRequest);
 		
