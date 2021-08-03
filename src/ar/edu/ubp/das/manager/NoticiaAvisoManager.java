@@ -1,8 +1,5 @@
 package ar.edu.ubp.das.manager;
 
-import java.sql.CallableStatement;
-import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.SQLException;
 
 import com.google.gson.Gson;
@@ -11,12 +8,14 @@ import ar.edu.ubp.das.bean.NoticiaAvisoBean;
 import ar.edu.ubp.das.bean.ws.NoticiaResponseBean;
 import ar.edu.ubp.das.bean.ws.NoticiasRequestBean;
 import ar.edu.ubp.das.conections.ConnectionManager;
+import ar.edu.ubp.das.db.Dao;
+import ar.edu.ubp.das.db.DaoFactory;
 import ar.edu.ubp.das.logger.Logger;
 import ar.edu.ubp.das.token.db.ConsoleTokenManger;
 
 public class NoticiaAvisoManager {
 	
-	private final String cadenaConexion = "jdbc:sqlserver://172.10.3.106;databaseName=gobierno_provincial";
+	private final String cadenaConexion = "jdbc:sqlserver://172.10.3.106;databaseName=gobierno_provincial;user=sa;password=Francomina1";
 	private final String usuario        = "sa";
 	private final String password       = "Francomina1";
 	private final String logPath        = "c:/Logger/NoticiaTask/";
@@ -44,33 +43,19 @@ public class NoticiaAvisoManager {
 	}
 	
 	public int GuardarEnDb(NoticiaResponseBean response) throws SQLException, ClassNotFoundException{
-		
-		Connection conn;
-		CallableStatement stmt;
-		
-		Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-		conn=DriverManager.getConnection(this.cadenaConexion,this.usuario,this.password);
-		conn.setAutoCommit(false);
-		
 		try {
-			stmt = conn.prepareCall("{CALL dbo.INSERTAR_NOTICIA_AVISO(?,?,?)}");
-			
-			for (NoticiaAvisoBean noticiaAvisoBean : response.getNovedades()) {
-				stmt.setString(1, noticiaAvisoBean.getTipo());
-				stmt.setString(2, noticiaAvisoBean.getMensaje());
-				stmt.setString(3, "municipio");
-				stmt.executeUpdate();
-			}
-			
-			conn.commit();
-		} catch (SQLException e) {
-			conn.rollback();
-			throw e;
-		}finally {
-			conn.setAutoCommit(true);
-			conn.close();
-		}
+			Dao<NoticiaAvisoBean, NoticiaAvisoBean> dao = DaoFactory.getDao("NoticiaAviso", "ar.edu.ubp.das", 
+				"com.microsoft.sqlserver.jdbc.SQLServerDriver", this.cadenaConexion, "MS");
 		
+			for (NoticiaAvisoBean noticiaAvisoBean : response.getNovedades()) {
+				dao.insert(noticiaAvisoBean);
+			}
+		}catch (Exception e) {
+			Logger.getLogger(this.logPath).escribirLog(e);
+			Gson gson = new Gson();
+			Logger.getLogger(this.logPath+"/MensajesNoGuardados/").escribirLog(gson.toJson(response));
+			return -1;
+		}
 		return 0;
 	}
 }

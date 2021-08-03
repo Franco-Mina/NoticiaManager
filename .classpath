@@ -17,7 +17,7 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="lib" path="src/ar/edu/ubp/das/lib/conection-manager.jar"/>
-	<classpathentry kind="lib" path="src/ar/edu/ubp/das/lib/das-dao.jar"/>
+	<classpathentry kind="lib" path="src/ar/edu/ubp/das/lib/das-dao.jar" sourcepath="C:/Java/Final DAS/NoticiaAvisoManager/src/ar/edu/ubp/das/daos"/>
 	<classpathentry kind="lib" path="src/ar/edu/ubp/das/lib/sqljdbc4.jar"/>
 	<classpathentry kind="lib" path="src/ar/edu/ubp/das/lib/ErrorLogger.jar" sourcepath="/ErrorLogger"/>
 	<classpathentry kind="output" path="target/classes"/>
