@@ -33,9 +33,12 @@ public class NoticiaAvisoManager {
 		Gson gson = new Gson();
 		
 		NoticiaResponseBean response = gson.fromJson(json, NoticiaResponseBean.class);
-		
+				
 		try {
-			return this.GuardarEnDb(response);
+			if(!response.getNovedades().isEmpty()) {
+				return this.GuardarEnDb(response);
+			}
+			return 0;
 		} catch (ClassNotFoundException | SQLException e) {
 			Logger.getLogger(this.logPath).escribirLog(e);
 			return -1;

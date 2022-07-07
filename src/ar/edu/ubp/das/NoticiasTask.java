@@ -26,7 +26,7 @@ public class NoticiasTask {
 				NoticiaAvisoManager noticiaAvisoManager = new NoticiaAvisoManager();
 				//se dispara la llamada a la funcion que busca las noticias.
 				int result = noticiaAvisoManager.ObtenerNoticias();
-				
+				System.out.println("Fin busqueda noticias");
 				if(result != 0) System.err.println("error");
 			}
 		};
